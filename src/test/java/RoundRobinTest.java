@@ -24,9 +24,6 @@ public class RoundRobinTest {
                     (int) (Math.random() * (maxPrio - minPrio + 1) + minPrio), i
             );
 
-            System.out.println(processes[i].getName() + " " + processes[i].getQuantum() + " " + processes[i].getPriority());
-
-
         }
 
         RoundRobin roundRobin = new RoundRobin(processes);
@@ -57,9 +54,6 @@ public class RoundRobinTest {
                     (int) (Math.random() * (maxQuantum - minQuantum + 1) + minQuantum),
                     (int) (Math.random() * (maxPrio - minPrio + 1) + minPrio), i
             );
-
-            System.out.println(processes[i].getName() + " " + processes[i].getQuantum() + " " + processes[i].getPriority());
-
 
         }
 
@@ -104,9 +98,6 @@ public class RoundRobinTest {
                     (int) (Math.random() * (maxQuantum - minQuantum + 1) + minQuantum),
                     (int) (Math.random() * (maxPrio - minPrio + 1) + minPrio), i
             );
-
-            System.out.println(processes[i].getName() + " " + processes[i].getQuantum() + " " + processes[i].getPriority());
-
 
         }
 
