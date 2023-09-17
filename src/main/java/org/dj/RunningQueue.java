@@ -2,9 +2,9 @@ package org.dj;
 
 import java.util.Arrays;
 
-public class RoundRobin {
+public class RunningQueue extends Queue {
 
-    Process[] processes;
+    Process[] processes = new Process[50];
 
     int quantum = 1;
 
@@ -15,11 +15,9 @@ public class RoundRobin {
     int remProcesses = 0;
 
 
-    public RoundRobin(Process[] processes){
+    public RunningQueue(Process[] processes){
 
-        this.processes = processes;
-
-
+            this.processes = processes;
 
     }
 
@@ -72,7 +70,7 @@ public class RoundRobin {
 
                 i = head;
 
-            }else if (remProcesses > 0){
+            }else if (processes[i] != null && remProcesses > 0){
 
                 if (processes[i].getQuantum() > 0){
 
@@ -81,6 +79,10 @@ public class RoundRobin {
                     processes[i].setQuantum(processes[i].getQuantum() - quantum);
 
                     if (processes[i].getQuantum() <= 0){
+
+//                        super.remove();
+
+                        processes[i] = null;
 
                         remProcesses--;
 

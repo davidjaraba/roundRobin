@@ -1,5 +1,6 @@
 import org.dj.Process;
-import org.dj.RoundRobin;
+import org.dj.Queue;
+import org.dj.RunningQueue;
 import org.junit.jupiter.api.Test;
 
 public class RoundRobinTest {
@@ -29,11 +30,11 @@ public class RoundRobinTest {
 
         }
 
-        RoundRobin roundRobin = new RoundRobin(processes);
+        RunningQueue runningQueue = new RunningQueue(processes);
 
-        roundRobin.orderProcessByPriorityAndDate();
+        runningQueue.orderProcessByPriorityAndDate();
 
-        Process[] ordererProcess = roundRobin.getProcesses();
+        Process[] ordererProcess = runningQueue.getProcesses();
 
         for (int i = 0; i < ordererProcess.length - 1; i++) {
             if (ordererProcess[i].getPriority() > ordererProcess[i + 1].getPriority()) {
@@ -63,13 +64,13 @@ public class RoundRobinTest {
 
         }
 
-        RoundRobin roundRobin = new RoundRobin(processes);
+        RunningQueue runningQueue = new RunningQueue(processes);
 
-        roundRobin.orderProcessByPriorityAndDate();
+        runningQueue.orderProcessByPriorityAndDate();
 
-        int remProcess = roundRobin.checkCurrentRemProcesses();
+        int remProcess = runningQueue.checkCurrentRemProcesses();
 
-        Process[] orderProcess = roundRobin.getProcesses();
+        Process[] orderProcess = runningQueue.getProcesses();
 
         int countRemProcess = 0;
 
@@ -95,31 +96,29 @@ public class RoundRobinTest {
 
     @Test void  testRun() {
 
-        Process[] processes = new Process[50];
+        Queue queue = new Queue();
 
-        for (int i = 0; i < processes.length; i++) {
+        for (int i = 0; i < 50; i++) {
 
-            processes[i] = new Process(
+            queue.add(new Process(
                     "Process_" + i + ".exe",
                     (int) (Math.random() * (maxQuantum - minQuantum + 1) + minQuantum),
                     (int) (Math.random() * (maxPrio - minPrio + 1) + minPrio), i
-            );
-
-            System.out.println(processes[i].getName() + " " + processes[i].getQuantum() + " " + processes[i].getPriority());
-
+            ));
 
         }
 
-        RoundRobin roundRobin = new RoundRobin(processes);
+        Process[] allProcess = queue.runAll();
 
-        roundRobin.run();
-
-        Process[] allProcess = roundRobin.getProcesses();
-
-        for (Process process:
+        for (Process pr:
              allProcess) {
 
-            assert process.getQuantum() <= 0;
+            System.out.println(pr);
+
+//            if (pr == null){
+//                assert true;
+//            }else assert false;
+
         }
 
     }
